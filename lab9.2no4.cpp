@@ -7,7 +7,7 @@ int checkValidPass(char *ps);
 int main() {
 	char login[64], password[64];
 	printf("Enter login : "); gets(login);
-	printf("Enter password (5 characters and at least 1 digit of number)\n"); gets(password);
+	printf("Enter password (5-8 char, the first char must not be a number, at least 2 uppercase and at least 2 digits)\n"); gets(password);
 	if( checkLogin(login, password) == 1) {
 		printf("Welcome\n");
 	} else {
@@ -27,10 +27,9 @@ int checkValidPass(char *ps) {
 	int temp[L];
 	for(int i=0;i<L;i++){
 		if(isdigit(*(ps+i))) digit = digit+1;
+		if(isupper(*(ps+i))) upper = upper+1;
 	}
-	if(L==5){
-		if(digit>=1) accepted = 1;
-	}
+	if(L>=5 && L<=8 && !isdigit(*ps) && digit>=2 && upper>=2) accepted=1;	
 	return accepted;
 }
 
